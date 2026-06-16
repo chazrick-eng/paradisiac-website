@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Book a Private Tour — Paradisiac Beach Club</title>
+<meta name="description" content="Reserve a private tour of Paradisiac Beach Club. Share your details, choose a time, and a senior estate director will confirm within the hour." />
+<link rel="canonical" href="https://www.paradisiac.example/contact.html" />
+<meta property="og:title" content="Book a Private Tour — Paradisiac Beach Club" />
+<meta property="og:description" content="Reserve a private tour of the property. By appointment only." />
+<meta property="og:image" content="https://images.unsplash.com/photo-1505881502353-a1986add3762?auto=format&fit=crop&w=1200&q=80" />
+<meta name="twitter:card" content="summary_large_image" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="assets/styles.css" />
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header id="hdr" class="solid">
+  <div class="wrap nav">
+    <a href="index.html" class="brand" aria-label="Paradisiac Beach Club, home"><img src="assets/logo-nav-white.png" alt="Paradisiac Beach Club — The Jewel of the Caribbean" class="brand-logo" /></a>
+    <nav class="nav-links" aria-label="Primary">
+      <a href="residences.html">Residences</a>
+      <a href="amenities.html">Amenities</a>
+      <a href="gallery.html">Gallery</a>
+      <a href="contact.html" class="active">Contact</a>
+      <a href="contact.html" class="nav-cta">Book a Tour</a>
+    </nav>
+    <button class="burger" id="burger" aria-label="Open menu"><span></span><span></span><span></span></button>
+  </div>
+</header>
+<div class="overlay" id="overlay"></div>
+<nav class="mobile-nav" id="mobileNav" aria-label="Mobile">
+  <button class="mobile-close" id="mobileClose" aria-label="Close menu">&times;</button>
+  <a href="index.html">Home</a><a href="residences.html">Residences</a><a href="amenities.html">Amenities</a>
+  <a href="gallery.html">Gallery</a><a href="contact.html">Contact</a><a href="contact.html">Book a Tour</a>
+</nav>
+
+<main id="main">
+<section class="reserve subhero" id="reserve" style="background-image:linear-gradient(rgba(11,20,24,.9),rgba(11,20,24,.94)),url('https://images.unsplash.com/photo-1505881502353-a1986add3762?auto=format&fit=crop&w=2000&q=80');padding-top:170px">
+  <div class="wrap reserve-grid">
+    <div class="reserve-copy">
+      <div class="crumbs"><a href="index.html">Home</a> / <span>Contact</span></div>
+      <div class="eyebrow">By Private Appointment</div>
+      <h2>Book your private tour.</h2>
+      <p style="margin-top:18px;color:var(--cream-dim)">Tours are hosted privately by a senior estate director. Share a few details and choose a time — we'll confirm within the hour.</p>
+      <ul>
+        <li><b>01</b><span>A private, unhurried walkthrough of available residences and the beach club.</span></li>
+        <li><b>02</b><span>Personalised pricing, floor plans, and ownership terms.</span></li>
+        <li><b>03</b><span>Complimentary transfer and refreshments on arrival.</span></li>
+      </ul>
+      <p style="margin-top:30px;font-size:.9rem;color:var(--cream-dim)">Prefer to speak first? Use the live chat in the corner, or call <a href="tel:+13055550192" style="color:var(--gold)">+1 (305) 555-0192</a>.</p>
+    </div>
+
+    <div class="panel">
+      <h3>Reserve a Tour</h3>
+      <div class="sub">Three quick steps · under a minute</div>
+      <div class="steps"><div class="dot active" data-d="1"></div><div class="dot" data-d="2"></div><div class="dot" data-d="3"></div></div>
+      <form id="leadForm" onsubmit="return false">
+        <div class="form-step active" data-step="1">
+          <div class="field"><label for="interest">Which residence interests you?</label>
+            <select id="interest"><option>The Dune Villas — from $4.85M</option><option>The Horizon Houses — from $7.20M</option><option>The Headland Estate — from $14.5M</option><option>Undecided — show me everything</option></select></div>
+          <div class="field"><label for="timeframe">Purchase timeframe</label>
+            <select id="timeframe"><option>Ready to move now</option><option>Within 3 months</option><option>Within 6–12 months</option><option>Exploring / future</option></select></div>
+          <div class="field"><label for="budget">Indicative budget</label>
+            <select id="budget"><option>$4M – $7M</option><option>$7M – $12M</option><option>$12M+</option><option>Prefer to discuss</option></select></div>
+          <div class="form-nav"><button type="button" class="btn btn-solid" onclick="goStep(2)">Continue</button></div>
+        </div>
+        <div class="form-step" data-step="2">
+          <div class="two"><div class="field"><label for="fname">First name</label><input id="fname" placeholder="Jordan" /></div>
+            <div class="field"><label for="lname">Last name</label><input id="lname" placeholder="Rivera" /></div></div>
+          <div class="field"><label for="email">Email</label><input id="email" type="email" placeholder="you@email.com" /></div>
+          <div class="field"><label for="phone">Phone</label><input id="phone" type="tel" placeholder="+1 (000) 000-0000" /></div>
+          <div class="form-nav"><button type="button" class="btn" onclick="goStep(1)">Back</button><button type="button" class="btn btn-solid" onclick="goStep(3)">Choose a time</button></div>
+        </div>
+        <div class="form-step" data-step="3">
+          <div class="field"><label for="tdate">Preferred date</label><input id="tdate" type="date" /></div>
+          <fieldset class="field time-fieldset"><legend>Preferred time</legend>
+            <div class="time-grid" id="slots">
+              <button type="button" class="slot">10:00 AM</button><button type="button" class="slot">11:30 AM</button><button type="button" class="slot">1:00 PM</button>
+              <button type="button" class="slot">2:30 PM</button><button type="button" class="slot">4:00 PM</button><button type="button" class="slot">5:30 PM</button>
+            </div></fieldset>
+          <div class="field"><label for="notes">Notes (optional)</label><textarea id="notes" rows="2" placeholder="Anything we should know ahead of your visit?"></textarea></div>
+          <div class="form-nav"><button type="button" class="btn" onclick="goStep(2)">Back</button><button type="button" class="btn btn-solid" onclick="submitLead()">Confirm Tour</button></div>
+        </div>
+      </form>
+      <div class="success" id="success">
+        <div class="check">✓</div><h3 style="font-size:1.6rem">Tour requested</h3>
+        <p style="color:var(--cream-dim);margin-top:10px" id="successMsg">A senior estate director will confirm shortly.</p>
+        <button type="button" class="btn" style="margin-top:24px" onclick="resetForm()">Book another</button>
+      </div>
+      <p class="privacy">Your details are used only to arrange your visit and are never shared. By submitting you agree to be contacted about your tour.</p>
+    </div>
+  </div>
+</section>
+
+<!-- LOCATION / MAP -->
+<section class="bg-2" id="location">
+  <div class="wrap">
+    <div class="section-head center"><div class="eyebrow">Finding Us</div><h2>Location</h2>
+      <p>A private peninsula, gated and discreet — directions are shared on confirmation of your tour.</p></div>
+    <div class="map-grid">
+      <div class="map-info">
+        <h3>Paradisiac Beach Club</h3>
+        <div class="row"><b>Address</b><span>1 Headland Drive, Coastal Reserve<br>(private gated entrance)</span></div>
+        <div class="row"><b>Sales Gallery</b><span>Open daily, 10:00 AM – 6:00 PM</span></div>
+        <div class="row"><b>By Air</b><span>20 minutes from the regional airport; private helipad on site</span></div>
+        <div class="row" style="border:none"><b>Contact</b><span><a href="tel:+13055550192" style="color:var(--gold)">+1 (305) 555-0192</a><br><a href="mailto:sales@paradisiac.example" style="color:var(--gold)">sales@paradisiac.example</a></span></div>
+      </div>
+      <div class="map-embed">
+        <!-- Replace the q= value with your real address to update the pin. No API key needed for this embed. -->
+        <iframe title="Map to Paradisiac Beach Club" loading="lazy" referrerpolicy="no-referrer-when-downgrade"
+          src="https://maps.google.com/maps?q=Malibu%20California%20coast&t=&z=11&ie=UTF8&iwloc=&output=embed"></iframe>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section id="faq">
+  <div class="wrap" style="max-width:880px">
+    <div class="section-head center"><div class="eyebrow">Good to Know</div><h2>Frequently asked</h2></div>
+    <div class="faq-item">
+      <button class="faq-q" aria-expanded="false"><span>How do I arrange a private viewing?</span><span class="pm">+</span></button>
+      <div class="faq-a"><div>Submit the form above with your preferred date and time, or call us directly. A senior estate director will confirm your private tour, usually within the hour during gallery hours.</div></div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-q" aria-expanded="false"><span>Are the residences sold furnished?</span><span class="pm">+</span></button>
+      <div class="faq-a"><div>Each residence is delivered architecturally complete with integrated millwork, stone, and kitchens. Curated furnishing packages and bespoke interior design are available as an optional service.</div></div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-q" aria-expanded="false"><span>What does beach-club membership include?</span><span class="pm">+</span></button>
+      <div class="faq-a"><div>Ownership grants lifetime membership for the household and accompanied guests, with access to the private beach, spa, marina, restaurant, and concierge. No annual dues apply for the first five years.</div></div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-q" aria-expanded="false"><span>Is financing available?</span><span class="pm">+</span></button>
+      <div class="faq-a"><div>We work with select private-banking partners and can introduce qualified buyers on request. Pricing, ownership structures, and terms are discussed privately on tour.</div></div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-q" aria-expanded="false"><span>How is my information handled?</span><span class="pm">+</span></button>
+      <div class="faq-a"><div>Your details are used only to arrange your visit and are never sold or shared with third parties. You may request removal of your information at any time.</div></div>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="foot-grid">
+      <div><div class="foot-brand"><img src="assets/logo-white.png" alt="Paradisiac Beach Club" class="foot-logo" /></div><p>Private oceanfront residences and members' beach club. An exclusive limited release.</p><p style="color:var(--gold);margin-top:10px">By private appointment only.</p></div>
+      <div><h5>Explore</h5><a href="residences.html">Residences</a><a href="amenities.html">Amenities</a><a href="gallery.html">Gallery</a></div>
+      <div><h5>Connect</h5><a href="contact.html">Book a Tour</a><a href="mailto:sales@paradisiac.example">Email Sales</a><a href="tel:+13055550192">+1 (305) 555-0192</a></div>
+      <div><h5>Visit</h5><p>Paradisiac Beach Club<br>1 Headland Drive, Coastal Reserve</p><p>Sales Gallery open daily<br>10:00 AM – 6:00 PM</p></div>
+    </div>
+    <div class="foot-bottom"><span>© 2026 Paradisiac Beach Club. All rights reserved.</span><span class="visit-badge" id="visitBadge">Loading visit data…</span></div>
+  </div>
+</footer>
+
+<button class="chat-fab" id="chatFab" onclick="toggleChat()" aria-label="Open live chat">💬<span class="badge" id="chatBadge">1</span></button>
+<div class="chat-box" id="chatBox" role="dialog" aria-label="Live chat">
+  <div class="chat-head"><div class="av">A</div><div><div class="who">Amara · Estate Care</div><div class="stat">Online now</div></div></div>
+  <div class="chat-body" id="chatBody"><div class="msg bot">Welcome to Paradisiac Beach Club. I'm Amara — how can I help you today? ✨</div></div>
+  <div class="chat-input"><input id="chatInput" placeholder="Type a message…" aria-label="Message" /><button onclick="sendChat()" aria-label="Send">➤</button></div>
+  <div class="chat-note">Demo chat — connect Tawk.to / Crisp / Intercom for live agents.</div>
+</div>
+<script src="assets/site.js"></script>
+</body>
+</html>
