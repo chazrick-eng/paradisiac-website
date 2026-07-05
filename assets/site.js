@@ -95,8 +95,8 @@
     form.style.display='none';
     document.querySelector('.steps').style.display='none';
     document.getElementById('successMsg').textContent=
-      'Thank you, '+val('fname')+'. Your tour for '+lead.date+' at '+lead.time+
-      ' has been requested — we\'ll confirm by email and phone shortly.';
+      'Thank you, '+val('fname')+'. Your request for '+lead.date+' at '+lead.time+
+      ' has been received — the Paradisiac team will confirm by phone or email shortly.';
     document.getElementById('success').classList.add('show');
   };
 
@@ -131,10 +131,11 @@
     const log=JSON.parse(localStorage.getItem('pbc_chat')||'[]');
     log.push({t,at:Date.now()});localStorage.setItem('pbc_chat',JSON.stringify(log));
     setTimeout(()=>{
-      let r="Thank you — a member of our estate team will reply here shortly. Would you like to book a private tour in the meantime?";
-      if(/price|cost|how much|budget/i.test(t)) r="Residences begin at $4.85M. I'd be glad to arrange a private consultation with exact pricing — shall I book you a tour?";
-      if(/tour|visit|view|appointment|book/i.test(t)) r="Wonderful. You can reserve a private tour on our Contact page, or tell me a day that suits you. ✨";
-      if(/hello|hi|hey/i.test(t)) r="Hello, and welcome to Paradisiac. How may I assist you today?";
+      let r="Thanks for reaching out — the Paradisiac team will reply here shortly. In the meantime, would you like to apply for a home or book a model-unit visit?";
+      if(/price|cost|how much|budget/i.test(t)) r="Prices and availability are shared on application. Pop your details on our Apply page and the team will be in touch with everything.";
+      if(/tour|visit|view|model|see|appointment|book/i.test(t)) r="Our Ruby and Onyx model units are open to visit — Mon–Fri 9–5 and Sat 9–3. Head to the Apply page to pick a time and we'll confirm.";
+      if(/apply|buy|purchase|home|own/i.test(t)) r="Wonderful — you can apply on our Apply page, or call 876-513-3190. We'll guide you through the next steps.";
+      if(/hello|hi|hey/i.test(t)) r="Hello, and welcome to Paradisiac Beach Club. How can we help today?";
       pushMsg(r,'bot');
     },900);
   };
