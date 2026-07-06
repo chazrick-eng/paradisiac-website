@@ -74,29 +74,34 @@
   if(td){const d=new Date();d.setDate(d.getDate()+1);td.value=d.toISOString().slice(0,10);}
 
   window.goStep=function(n){
-    if(n===3){
+    if(n===2){
       const e=val('email'),f=val('fname');
-      if(!f||!/.+@.+\..+/.test(e)){alert('Please add your name and a valid email so we can confirm your tour.');return;}
+      if(!f||!/.+@.+\..+/.test(e)){alert('Please add your name and a valid email so we can process your application.');return;}
     }
     document.querySelectorAll('.form-step').forEach(s=>s.classList.toggle('active',+s.dataset.step===n));
     document.querySelectorAll('.steps .dot').forEach(d=>d.classList.toggle('active',+d.dataset.d<=n));
   };
 
   window.submitLead=function(){
-    if(!chosenSlot){alert('Please choose a preferred time.');return;}
-    const lead={interest:val('interest'),timeframe:val('timeframe'),budget:val('budget'),
-      name:val('fname')+' '+val('lname'),email:val('email'),phone:val('phone'),
-      date:val('tdate'),time:chosenSlot,notes:val('notes'),
-      source:location.pathname.split('/').pop()||'index.html',submitted:new Date().toISOString()};
+    const f=val('fname'), e=val('email');
+    if(!f||!/.+@.+\..+/.test(e)){alert('Please add your name and a valid email so we can process your application.');goStep(1);return;}
+    const lead={
+      name:val('fname'), address:val('address'), email:e, phone:val('phone'), maritalStatus:val('marital'),
+      idNumber:val('idnum'), idType:val('idtype')==='Other'?(val('idother')||'Other'):val('idtype'),
+      occupation:val('occupation'), employmentLength:val('tenure'),
+      netIncome:val('income'), currency:val('currency'),
+      placeOfWork:val('placeofwork'), workPhone:val('workphone'), previousWork:val('prevwork'),
+      residence:val('interest'), condoBedrooms:val('condobeds'), preferredLot:val('lot'), reasonToBuy:val('prompted'),
+      financingArranged:val('financing'), financingType:val('fintype'), preQualified:val('prequal'),
+      source:location.pathname.split('/').pop()||'index.html', submitted:new Date().toISOString()};
     const leads=JSON.parse(localStorage.getItem('pbc_leads')||'[]');
     leads.push(lead);localStorage.setItem('pbc_leads',JSON.stringify(leads));
-    console.log('LEAD CAPTURED →',lead);
-    /* PRODUCTION: fetch('/api/leads',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(lead)}); */
+    console.log('APPLICATION CAPTURED →',lead);
+    /* PRODUCTION: fetch('/api/applications',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(lead)}); */
     form.style.display='none';
     document.querySelector('.steps').style.display='none';
     document.getElementById('successMsg').textContent=
-      'Thank you, '+val('fname')+'. Your request for '+lead.date+' at '+lead.time+
-      ' has been received — the Paradisiac team will confirm by phone or email shortly.';
+      'Thank you, '+val('fname')+'. Your application has been received — the Paradisiac team will review it and be in touch by phone or email shortly.';
     document.getElementById('success').classList.add('show');
   };
 
