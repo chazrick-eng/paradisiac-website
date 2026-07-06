@@ -50,9 +50,9 @@
       <h2>Apply for your new home.</h2>
       <p style="margin-top:18px;color:var(--cream-dim)">Tell us a little about what you're looking for and we'll be in touch. You can also book a visit to our finished Ruby and Onyx model units.</p>
       <ul>
-        <li><b>01</b><span>Choose the residence that interests you — from apartments to a detached home.</span></li>
-        <li><b>02</b><span>Share your details and how you'd like us to help.</span></li>
-        <li><b>03</b><span>Pick a time to visit the model units, and we'll confirm.</span></li>
+        <li><b>01</b><span>Tell us about yourself — your details and how to reach you.</span></li>
+        <li><b>02</b><span>Share your employment, income and financing information.</span></li>
+        <li><b>03</b><span>Choose your preferred residence and submit your application.</span></li>
       </ul>
       <p style="margin-top:26px;font-size:.95rem;color:var(--cream-dim)">Call <a href="tel:+18765133190" style="color:var(--gold)">876-513-3190</a> or <a href="tel:+18766346139" style="color:var(--gold)">876-634-6139</a><br>
       Email <a href="mailto:paradisiacbeachclub@aol.com" style="color:var(--gold)">paradisiacbeachclub@aol.com</a><br>
@@ -61,35 +61,70 @@
     </div>
 
     <div class="panel">
-      <h3>Apply / Enquire</h3>
-      <div class="sub">Three quick steps · under a minute</div>
-      <div class="steps"><div class="dot active" data-d="1"></div><div class="dot" data-d="2"></div><div class="dot" data-d="3"></div></div>
+      <h3>Application Form</h3>
+      <div class="sub">A few details · we'll be in touch</div>
+      <div class="steps"><div class="dot active" data-d="1"></div><div class="dot" data-d="2"></div><div class="dot" data-d="3"></div><div class="dot" data-d="4"></div></div>
       <form id="leadForm" onsubmit="return false">
         <div class="form-step active" data-step="1">
-          <div class="field"><label for="interest">Which residence interests you?</label>
-            <select id="interest"><option>The Ruby — Three-Bedroom Home</option><option>The Onyx — Three-Bedroom Duplex</option><option>The Sapphire — One & Two-Bedroom Apartments</option><option>The Emerald — Two & Three-Bedroom Apartments</option><option>The Diamond — Four-Bedroom Home</option><option>Not sure yet — show me everything</option></select></div>
-          <div class="field"><label for="timeframe">When are you looking to move?</label>
-            <select id="timeframe"><option>As soon as possible</option><option>Within 3 months</option><option>Within 6–12 months</option><option>Just exploring</option></select></div>
-          <div class="field"><label for="budget">How can we help?</label>
-            <select id="budget"><option>Apply for a home</option><option>Visit a model unit</option><option>Join the newsletter</option><option>General enquiry</option></select></div>
+          <div class="field"><label for="fname">Name of buyer</label><input id="fname" placeholder="Full name" /></div>
+          <div class="field"><label for="address">Residential address</label><textarea id="address" rows="2" placeholder="Street, town, parish"></textarea></div>
+          <div class="two">
+            <div class="field"><label for="email">Email address</label><input id="email" type="email" placeholder="you@email.com" /></div>
+            <div class="field"><label for="phone">Telephone number</label><input id="phone" type="tel" placeholder="+1 (876) 000-0000" /></div>
+          </div>
+          <div class="field"><label for="marital">Marital status</label>
+            <select id="marital"><option value="">Select&hellip;</option><option>Single</option><option>Married</option><option>Divorced</option><option>Widowed</option><option>Other</option></select></div>
           <div class="form-nav"><button type="button" class="btn btn-solid" onclick="goStep(2)">Continue</button></div>
         </div>
         <div class="form-step" data-step="2">
-          <div class="two"><div class="field"><label for="fname">First name</label><input id="fname" placeholder="Jordan" /></div>
-            <div class="field"><label for="lname">Last name</label><input id="lname" placeholder="Brown" /></div></div>
-          <div class="field"><label for="email">Email</label><input id="email" type="email" placeholder="you@email.com" /></div>
-          <div class="field"><label for="phone">Phone / WhatsApp</label><input id="phone" type="tel" placeholder="+1 (876) 000-0000" /></div>
-          <div class="form-nav"><button type="button" class="btn" onclick="goStep(1)">Back</button><button type="button" class="btn btn-solid" onclick="goStep(3)">Choose a time</button></div>
+          <div class="two">
+            <div class="field"><label for="idnum">Identification number</label><input id="idnum" placeholder="ID number" /></div>
+            <div class="field"><label for="idtype">ID type</label>
+              <select id="idtype"><option value="">Select&hellip;</option><option>Driver's Licence</option><option>Voter's ID</option><option>Passport</option><option>Other</option></select></div>
+          </div>
+          <div class="field"><label for="idother">If other, specify</label><input id="idother" placeholder="Other ID type (optional)" /></div>
+          <div class="two">
+            <div class="field"><label for="occupation">Occupation</label><input id="occupation" placeholder="Your occupation" /></div>
+            <div class="field"><label for="tenure">How long have you worked there?</label><input id="tenure" placeholder="e.g. 3 years" /></div>
+          </div>
+          <div class="two">
+            <div class="field"><label for="income">Net income</label><input id="income" placeholder="Amount" /></div>
+            <div class="field"><label for="currency">Currency</label>
+              <select id="currency"><option value="">Select&hellip;</option><option>GBP</option><option>USD</option><option>CAD</option><option>JMD</option></select></div>
+          </div>
+          <div class="field"><label for="placeofwork">Place of work</label><input id="placeofwork" placeholder="Employer / company" /></div>
+          <div class="two">
+            <div class="field"><label for="workphone">Work phone number</label><input id="workphone" type="tel" placeholder="Work number" /></div>
+            <div class="field"><label for="prevwork">Previous place of work &amp; duration</label><input id="prevwork" placeholder="Employer, years" /></div>
+          </div>
+          <div class="form-nav"><button type="button" class="btn" onclick="goStep(1)">Back</button><button type="button" class="btn btn-solid" onclick="goStep(3)">Continue</button></div>
         </div>
         <div class="form-step" data-step="3">
-          <div class="field"><label for="tdate">Preferred visit date</label><input id="tdate" type="date" /></div>
-          <fieldset class="field time-fieldset"><legend>Preferred time</legend>
-            <div class="time-grid" id="slots">
-              <button type="button" class="slot">9:00 AM</button><button type="button" class="slot">10:30 AM</button><button type="button" class="slot">12:00 PM</button>
-              <button type="button" class="slot">1:30 PM</button><button type="button" class="slot">3:00 PM</button><button type="button" class="slot">4:00 PM</button>
-            </div></fieldset>
-          <div class="field"><label for="notes">Notes (optional)</label><textarea id="notes" rows="2" placeholder="Anything you'd like us to know?"></textarea></div>
-          <div class="form-nav"><button type="button" class="btn" onclick="goStep(2)">Back</button><button type="button" class="btn btn-solid" onclick="submitLead()">Submit Application</button></div>
+          <div class="field"><label for="interest">Preferred residence</label>
+            <select id="interest">
+              <option value="">Select a residence&hellip;</option>
+              <option>The Ruby &ndash; three-bedroom home</option>
+              <option>The Onyx &ndash; three-bedroom duplex</option>
+              <option>The Emerald &ndash; Condominium</option>
+              <option>The Sapphire &ndash; Condominium</option>
+              <option>The Diamond &ndash; Luxury Villa</option>
+            </select></div>
+          <div class="two">
+            <div class="field"><label for="condobeds">Condominium bedrooms</label>
+              <select id="condobeds"><option value="">If condominium&hellip;</option><option>One bedroom</option><option>Two bedroom</option><option>Three bedroom</option></select></div>
+            <div class="field"><label for="lot">Preferred lot number</label><input id="lot" placeholder="Lot no. (optional)" /></div>
+          </div>
+          <div class="field"><label for="prompted">What prompted you to buy a new home?</label><textarea id="prompted" rows="3" placeholder="Tell us a little about what you're looking for"></textarea></div>
+          <div class="form-nav"><button type="button" class="btn" onclick="goStep(2)">Back</button><button type="button" class="btn btn-solid" onclick="goStep(4)">Continue</button></div>
+        </div>
+        <div class="form-step" data-step="4">
+          <div class="field"><label for="financing">Do you have arranged financing?</label>
+            <select id="financing"><option value="">Select&hellip;</option><option>Yes</option><option>No</option><option>Not yet</option></select></div>
+          <div class="field"><label for="fintype">Type of financing</label>
+            <select id="fintype"><option value="">Select&hellip;</option><option>Cash</option><option>Mortgage</option></select></div>
+          <div class="field"><label for="prequal">Have you been pre-qualified, pre-approved, or informed of your maximum purchase amount?</label>
+            <select id="prequal"><option value="">Select&hellip;</option><option>Yes</option><option>No</option><option>Not sure</option></select></div>
+          <div class="form-nav"><button type="button" class="btn" onclick="goStep(3)">Back</button><button type="button" class="btn btn-solid" onclick="submitLead()">Submit Application</button></div>
         </div>
       </form>
       <div class="success" id="success">
