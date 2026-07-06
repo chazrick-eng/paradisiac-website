@@ -125,6 +125,7 @@ section{padding:120px 0;position:relative}
 
 /* ---------- AMENITIES ---------- */
 .amen-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:2px;background:var(--line)}
+.amen-3{grid-template-columns:repeat(3,1fr)}
 .amen-grid .item{background:var(--ink-2);padding:42px 30px;transition:background .4s}
 .amen-grid .item:hover{background:var(--panel)}
 .amen-grid .item .ic{font-size:1.6rem;color:var(--gold);margin-bottom:16px}
