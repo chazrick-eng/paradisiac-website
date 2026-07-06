@@ -147,6 +147,19 @@
   input.addEventListener('keydown',e=>{if(e.key==='Enter')sendChat();});
 })();
 
+/* ---------- PHOTO FAB (residence detail → jump to gallery) ---------- */
+(function(){
+  const fab=document.getElementById('photoFab');
+  const target=document.getElementById('photos');
+  if(!fab||!target)return;
+  if('IntersectionObserver' in window){
+    const io=new IntersectionObserver(es=>{
+      es.forEach(e=>fab.classList.toggle('hidden', e.isIntersecting));
+    },{threshold:0.06});
+    io.observe(target);
+  }
+})();
+
 /* ---------- GALLERY LIGHTBOX (accessible) ---------- */
 (function(){
   const lb=document.getElementById('lightbox');

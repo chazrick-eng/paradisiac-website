@@ -203,6 +203,15 @@ footer{background:var(--ink-2);padding:80px 0 30px;border-top:1px solid var(--li
 .chat-fab{position:fixed;bottom:26px;right:26px;z-index:80;width:62px;height:62px;border-radius:50%;background:var(--gold);color:var(--ink);display:flex;align-items:center;justify-content:center;cursor:pointer;box-shadow:0 14px 40px -8px rgba(0,0,0,.6);transition:transform .3s;font-size:1.5rem;border:none}
 .chat-fab:hover{transform:scale(1.08)}
 .chat-fab .badge{position:absolute;top:-2px;right:-2px;width:18px;height:18px;border-radius:50%;background:#e5524d;color:#fff;font-size:.62rem;display:flex;align-items:center;justify-content:center;font-family:var(--sans)}
+html{scroll-behavior:smooth}
+#photos{scroll-margin-top:92px}
+.photo-fab{position:fixed;bottom:26px;left:26px;z-index:80;display:inline-flex;align-items:center;gap:9px;padding:13px 22px;border-radius:40px;background:var(--gold);color:var(--ink);font-family:var(--sans);font-size:.8rem;font-weight:600;letter-spacing:.06em;text-transform:uppercase;text-decoration:none;box-shadow:0 14px 40px -8px rgba(0,0,0,.6);transition:transform .3s,opacity .35s,visibility .35s;animation:pfBob 2.6s ease-in-out infinite}
+.photo-fab:hover{transform:translateY(-3px);animation:none}
+.photo-fab .pf-ic{font-size:.9rem;line-height:1}
+.photo-fab.hidden{opacity:0;visibility:hidden;transform:translateY(14px)}
+@keyframes pfBob{0%,100%{transform:translateY(0)}50%{transform:translateY(-4px)}}
+@media(max-width:600px){.photo-fab{bottom:20px;left:14px;padding:11px 17px;font-size:.7rem}}
+@media(prefers-reduced-motion:reduce){.photo-fab{animation:none}html{scroll-behavior:auto}}
 .chat-box{position:fixed;bottom:100px;right:26px;z-index:80;width:340px;max-width:calc(100vw - 40px);background:var(--ink-2);border:1px solid var(--line);box-shadow:0 30px 70px -20px rgba(0,0,0,.8);display:none;flex-direction:column;overflow:hidden;border-radius:6px}
 .chat-box.open{display:flex;animation:fade .3s ease}
 .chat-head{background:var(--panel);padding:18px 20px;display:flex;align-items:center;gap:12px;border-bottom:1px solid var(--line)}
