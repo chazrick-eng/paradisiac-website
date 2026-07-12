@@ -53,7 +53,7 @@ header.scrolled,header.solid{background:rgba(11,20,24,.92);backdrop-filter:blur(
 .overlay.show{opacity:1;visibility:visible}
 
 /* ---------- HERO ---------- */
-.hero{position:relative;min-height:100vh;display:flex;align-items:center;background:linear-gradient(180deg,rgba(11,20,24,.55),rgba(11,20,24,.82)),url('https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=2000&q=80') center/cover fixed}
+.hero{position:relative;min-height:100vh;display:flex;align-items:center;background:linear-gradient(180deg,rgba(11,20,24,.55),rgba(11,20,24,.82)),url('media/home-hero.jpg') center/cover fixed}
 .hero-inner{max-width:760px}
 .hero h1{font-size:clamp(3rem,8vw,6.4rem);color:#fff;font-weight:500}
 .hero h1 em{font-style:italic;color:var(--gold-soft)}
@@ -148,7 +148,7 @@ section{padding:120px 0;position:relative}
 .lb-prev{left:30px}.lb-next{right:30px}
 
 /* ---------- BOOKING / LEAD FUNNEL ---------- */
-.reserve{background:linear-gradient(rgba(11,20,24,.9),rgba(11,20,24,.94)),url('https://images.unsplash.com/photo-1505881502353-a1986add3762?auto=format&fit=crop&w=2000&q=80') center/cover}
+.reserve{background:linear-gradient(rgba(11,20,24,.9),rgba(11,20,24,.94)),url('media/club-01.jpg') center/cover}
 .reserve-grid{display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:start}
 .panel{background:var(--ink-2);border:1px solid var(--line);padding:46px 44px}
 .panel h3{font-size:1.9rem;margin-bottom:6px}
@@ -245,6 +245,19 @@ html{scroll-behavior:smooth}
 .faq-a{max-height:0;overflow:hidden;transition:max-height .4s ease;color:var(--cream-dim)}
 .faq-a div{padding:0 0 24px}
 
+/* ---------- FLOOR PLANS ---------- */
+.fp-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:30px}
+.fp-item{background:var(--panel);border:1px solid var(--line);overflow:hidden}
+.fp-item button{display:block;width:100%;border:none;padding:0;margin:0;cursor:pointer;background:#fff}
+.fp-item button img{width:100%;height:auto;display:block}
+.fp-item .fp-label{padding:18px 22px;border-top:1px solid var(--line)}
+.fp-item .fp-label b{font-family:var(--serif);font-size:1.15rem;color:var(--gold-soft);display:block}
+.fp-item .fp-label span{font-size:.72rem;letter-spacing:.14em;text-transform:uppercase;color:var(--cream-dim)}
+
+/* ---------- SPEC BADGES ---------- */
+.spec-badges{display:flex;flex-wrap:wrap;gap:10px;margin:22px 0 0}
+.spec-badges .badge{font-size:.68rem;letter-spacing:.12em;text-transform:uppercase;color:var(--gold-soft);border:1px solid var(--line);padding:9px 16px;background:var(--panel)}
+
 /* ---------- RESPONSIVE ---------- */
 @media(max-width:900px){
   .nav-links{display:none}
@@ -254,6 +267,7 @@ html{scroll-behavior:smooth}
   .grid-3{grid-template-columns:1fr}
   .amen-grid{grid-template-columns:1fr 1fr}
   .gallery{grid-template-columns:1fr 1fr;grid-auto-rows:180px}
+  .fp-grid{grid-template-columns:1fr;grid-auto-rows:auto}
   .foot-grid{grid-template-columns:1fr 1fr}
   .hero{background-attachment:scroll}
   .map-grid{border:none}.map-info{border:1px solid var(--line)}
