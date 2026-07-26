@@ -232,7 +232,7 @@
   });
 
   // scroll reveal with stagger
-  const sel=['.hero-inner > *','.section-head','.about-grid > *','.card','.amen-grid .item',
+  const sel=['.section-head','.about-grid > *','.card','.amen-grid .item',
     '.gallery button','.reserve-copy','.panel','.stat','.listing-grid > *','.feature-list li',
     '.price-block','.map-grid > *','.cta-strip .wrap > *','.foot-grid > *','.spec-row .s','.faq-item'];
   const els=[...document.querySelectorAll(sel.join(','))];
@@ -244,6 +244,6 @@
   });
   const io=new IntersectionObserver((ents)=>{
     ents.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); } });
-  },{threshold:0.12, rootMargin:'0px 0px -7% 0px'});
+  },{threshold:0.08, rootMargin:'0px 0px 12% 0px'});
   els.forEach(el=>io.observe(el));
 })();

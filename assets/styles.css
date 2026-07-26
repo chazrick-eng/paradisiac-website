@@ -53,7 +53,15 @@ header.scrolled,header.solid{background:rgba(11,20,24,.92);backdrop-filter:blur(
 .overlay.show{opacity:1;visibility:visible}
 
 /* ---------- HERO ---------- */
-.hero{position:relative;min-height:100vh;display:flex;align-items:center;background:linear-gradient(180deg,rgba(11,20,24,.55),rgba(11,20,24,.82)),url('media/home-hero.jpg') center/cover fixed}
+.hero{position:relative;overflow:hidden;min-height:100vh;display:flex;align-items:center}
+.hero-slides{position:absolute;inset:0;z-index:0}
+.hero-slide{position:absolute;inset:0;background-position:center;background-size:cover;opacity:0;will-change:opacity;animation:heroFade 24s ease-in-out infinite}
+.hero-slide:nth-child(2){animation-delay:8s}
+.hero-slide:nth-child(3){animation-delay:16s}
+@keyframes heroFade{0%{opacity:0}4%{opacity:1}30%{opacity:1}36%{opacity:0}100%{opacity:0}}
+.hero::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(11,20,24,.5),rgba(11,20,24,.82));z-index:1;pointer-events:none}
+.hero .wrap,.hero .scroll-cue{position:relative;z-index:2}
+@media(prefers-reduced-motion:reduce){.hero-slide{animation:none;opacity:0}}
 .hero-inner{max-width:760px}
 .hero h1{font-size:clamp(3rem,8vw,6.4rem);color:#fff;font-weight:500}
 .hero h1 em{font-style:italic;color:var(--gold-soft)}
