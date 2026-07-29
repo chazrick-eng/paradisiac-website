@@ -53,33 +53,30 @@ header.scrolled,header.solid{background:rgba(11,20,24,.92);backdrop-filter:blur(
 .overlay.show{opacity:1;visibility:visible}
 
 /* ---------- HERO ---------- */
-/* ---------- PRELOADER (home load-up: photo shutter) ---------- */
-.preloader{position:fixed;inset:0;z-index:9999;background:var(--ink);overflow:hidden}
-.pl-shutter{position:absolute;inset:0;display:flex}
-.pl-panel{position:relative;flex:1;height:100%;overflow:hidden;transform:translateY(0);transition:transform 1s cubic-bezier(.76,0,.24,1)}
-.pl-panel+.pl-panel{border-left:1px solid rgba(11,20,24,.6)}
-.pl-img{position:absolute;inset:0;background-size:cover;background-position:center;transform:scale(1.3);animation:plKen 3.8s ease-out forwards}
-.pl-panel::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(11,20,24,.32),rgba(11,20,24,.72))}
-.pl-panel:nth-child(2) .pl-img{animation-duration:4.1s}
-.pl-panel:nth-child(4) .pl-img{animation-duration:4.1s}
-@keyframes plKen{from{transform:scale(1.3)}to{transform:scale(1.04)}}
-.pl-center{position:absolute;inset:0;z-index:2;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:16px;transition:opacity .5s ease,transform .7s cubic-bezier(.76,0,.24,1)}
-.pl-word{font-family:var(--serif);font-weight:500;font-size:clamp(2.6rem,8vw,5.6rem);letter-spacing:.12em;color:#fff;opacity:0;transform:translateY(16px);animation:plWord 1s cubic-bezier(.2,.7,.2,1) .35s forwards;text-shadow:0 8px 40px rgba(0,0,0,.5)}
-.pl-line{width:0;height:1px;background:var(--gold);animation:plLine 1.1s cubic-bezier(.6,0,.2,1) .55s forwards}
-.pl-tag2{font-family:var(--sans);font-size:.68rem;letter-spacing:.44em;text-transform:uppercase;color:var(--gold-soft);opacity:0;transform:translateY(10px);animation:plWord 1s cubic-bezier(.2,.7,.2,1) .7s forwards}
+/* ---------- PRELOADER (home load-up: photo bloom) ---------- */
+.preloader{position:fixed;inset:0;z-index:9999;background:var(--ink);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:28px;transition:opacity .6s ease .55s}
+.preloader.done{opacity:0;pointer-events:none}
+.pl-stage{position:relative;width:44vw;max-width:720px;height:56vh;transform:scale(.86);opacity:0;animation:plStageIn .85s cubic-bezier(.2,.7,.2,1) .15s forwards;z-index:1}
+.pl-card{position:absolute;inset:0;border-radius:16px;overflow:hidden;box-shadow:0 50px 140px -30px rgba(0,0,0,.85);transition:transform 1.15s cubic-bezier(.76,0,.24,1),border-radius 1.15s ease}
+.pl-cimg{position:absolute;inset:0;background-size:cover;background-position:center;opacity:0;transform:scale(1.06);animation:plShow .55s ease forwards}
+.pl-cimg:nth-child(1){animation-delay:.45s}
+.pl-cimg:nth-child(2){animation-delay:.9s}
+.pl-cimg:nth-child(3){animation-delay:1.35s}
+.pl-cimg:nth-child(4){animation-delay:1.8s}
+@keyframes plShow{to{opacity:1;transform:scale(1)}}
+@keyframes plStageIn{to{opacity:1;transform:scale(1)}}
+.pl-center{position:relative;z-index:2;display:flex;flex-direction:column;align-items:center;gap:14px;transition:opacity .45s ease,transform .6s ease}
+.pl-word{font-family:var(--serif);font-weight:500;font-size:clamp(2rem,5vw,3.2rem);letter-spacing:.14em;color:#fff;opacity:0;transform:translateY(14px);animation:plWord .9s cubic-bezier(.2,.7,.2,1) .5s forwards}
+.pl-line{width:0;height:1px;background:var(--gold);animation:plLine 1s cubic-bezier(.6,0,.2,1) .7s forwards}
+.pl-tag2{font-family:var(--sans);font-size:.64rem;letter-spacing:.42em;text-transform:uppercase;color:var(--gold-soft);opacity:0;animation:plWord .9s ease .85s forwards}
 @keyframes plWord{to{opacity:1;transform:none}}
-@keyframes plLine{to{width:170px}}
-/* reveal: panels split apart (alternating up / down), staggered */
-.preloader.done .pl-panel{transform:translateY(-102%)}
-.preloader.done .pl-panel:nth-child(even){transform:translateY(102%)}
-.preloader.done .pl-panel:nth-child(1){transition-delay:0s}
-.preloader.done .pl-panel:nth-child(2){transition-delay:.08s}
-.preloader.done .pl-panel:nth-child(3){transition-delay:.16s}
-.preloader.done .pl-panel:nth-child(4){transition-delay:.24s}
-.preloader.done .pl-panel:nth-child(5){transition-delay:.32s}
-.preloader.done .pl-center{opacity:0;transform:translateY(-22px)}
+@keyframes plLine{to{width:150px}}
+/* reveal: card blooms to full-bleed, wordmark fades, curtain fades to hero */
+.preloader.done .pl-card{transform:scale(2.9);border-radius:0}
+.preloader.done .pl-center{opacity:0;transform:translateY(-16px)}
 .pl-skip .preloader{display:none!important}
 body.pl-lock{overflow:hidden}
+@media(max-width:700px){.pl-stage{width:80vw;height:46vh}}
 @media(prefers-reduced-motion:reduce){.preloader{display:none}}
 .hero{position:relative;overflow:hidden;min-height:100vh;display:flex;align-items:center}
 .hero-slides{position:absolute;inset:0;z-index:0;overflow:hidden}

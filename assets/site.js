@@ -14,7 +14,7 @@
   let done=false;
   const finish=()=>{if(done)return;done=true;pl.classList.add('done');document.body.classList.remove('pl-lock');
     try{sessionStorage.setItem('pbc_loaded','1');}catch(e){}
-    setTimeout(()=>pl.remove(),1700);};
+    setTimeout(()=>pl.remove(),2100);};
   const start=Date.now();
   if(document.readyState==='complete')setTimeout(finish,2600);
   else addEventListener('load',()=>setTimeout(finish,Math.max(0,2600-(Date.now()-start))));
