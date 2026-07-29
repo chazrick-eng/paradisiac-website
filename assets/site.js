@@ -4,6 +4,23 @@
    runs the logic for the components it actually contains.
    ============================================================ */
 
+/* ---------- PRELOADER (home load-up) ---------- */
+(function(){
+  const pl=document.getElementById('preloader');
+  if(!pl)return;
+  const reduce=window.matchMedia&&matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if(reduce||document.documentElement.classList.contains('pl-skip')){pl.remove();return;}
+  document.body.classList.add('pl-lock');
+  let done=false;
+  const finish=()=>{if(done)return;done=true;pl.classList.add('done');document.body.classList.remove('pl-lock');
+    try{sessionStorage.setItem('pbc_loaded','1');}catch(e){}
+    setTimeout(()=>pl.remove(),1200);};
+  const start=Date.now();
+  if(document.readyState==='complete')setTimeout(finish,1600);
+  else addEventListener('load',()=>setTimeout(finish,Math.max(0,1600-(Date.now()-start))));
+  setTimeout(finish,4500); // safety net
+})();
+
 /* ---------- HEADER SCROLL STATE ---------- */
 (function(){
   const hdr=document.getElementById('hdr');

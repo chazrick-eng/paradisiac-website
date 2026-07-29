@@ -53,6 +53,19 @@ header.scrolled,header.solid{background:rgba(11,20,24,.92);backdrop-filter:blur(
 .overlay.show{opacity:1;visibility:visible}
 
 /* ---------- HERO ---------- */
+/* ---------- PRELOADER (home load-up) ---------- */
+.preloader{position:fixed;inset:0;z-index:9999;background:var(--ink);display:flex;align-items:center;justify-content:center;transition:transform 1.05s cubic-bezier(.76,0,.24,1),opacity .6s ease .45s}
+.pl-inner{display:flex;flex-direction:column;align-items:center;gap:20px}
+.pl-logo{height:60px;width:auto;opacity:0;transform:translateY(12px) scale(.98);animation:plUp .9s cubic-bezier(.2,.7,.2,1) .1s forwards}
+.pl-tag{font-family:var(--sans);font-size:.66rem;letter-spacing:.42em;text-transform:uppercase;color:var(--gold-soft);opacity:0;transform:translateY(10px);animation:plUp .9s cubic-bezier(.2,.7,.2,1) .28s forwards}
+.pl-bar{width:190px;height:2px;background:rgba(255,255,255,.12);overflow:hidden}
+.pl-bar i{display:block;height:100%;background:var(--gold);transform-origin:left;transform:scaleX(0);animation:plFill 1.6s cubic-bezier(.55,0,.25,1) .3s forwards}
+@keyframes plUp{to{opacity:1;transform:none}}
+@keyframes plFill{to{transform:scaleX(1)}}
+.preloader.done{transform:translateY(-100%);opacity:0;pointer-events:none}
+.pl-skip .preloader{display:none!important}
+body.pl-lock{overflow:hidden}
+@media(prefers-reduced-motion:reduce){.preloader{display:none}}
 .hero{position:relative;overflow:hidden;min-height:100vh;display:flex;align-items:center}
 .hero-slides{position:absolute;inset:0;z-index:0;overflow:hidden}
 .hero-slide{position:absolute;inset:0;background-position:center;background-size:cover;opacity:0;will-change:opacity,transform;animation:heroKB 21s ease-in-out infinite}
