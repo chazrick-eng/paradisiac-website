@@ -395,3 +395,11 @@ header.scrolled .brand-logo{height:36px}
 @keyframes rxBloom{45%{opacity:.9}100%{transform:scale(1.2);opacity:1}}
 @keyframes rxWord{to{opacity:1}}
 @media(prefers-reduced-motion:reduce){.res-x{display:none}}
+
+/* ---------- SKIP CONTROLS (intro + click transition) ---------- */
+.pl-skip{position:absolute;bottom:30px;right:32px;z-index:6;background:rgba(11,20,24,.35);border:1px solid var(--line);color:var(--cream-dim);font-family:var(--sans);font-size:.7rem;font-weight:500;letter-spacing:.18em;text-transform:uppercase;padding:10px 20px;border-radius:30px;cursor:pointer;-webkit-backdrop-filter:blur(4px);backdrop-filter:blur(4px);transition:color .25s,border-color .25s,background .25s;opacity:0;animation:plSkipIn .45s ease .7s forwards}
+.pl-skip:hover,.pl-skip:focus-visible{color:var(--ink);background:var(--gold);border-color:var(--gold);outline:none}
+@keyframes plSkipIn{to{opacity:1}}
+.preloader.pl-skipped{opacity:0!important;transition:opacity .4s ease;pointer-events:none}
+.res-x .rx-skip{position:absolute;bottom:30px;right:32px;z-index:3;color:var(--cream-dim);font-family:var(--sans);font-size:.68rem;font-weight:500;letter-spacing:.2em;text-transform:uppercase;border:1px solid var(--line);border-radius:30px;padding:9px 18px;opacity:0;animation:plSkipIn .4s ease .25s forwards}
+@media(max-width:700px){.pl-skip,.res-x .rx-skip{bottom:22px;right:20px}}

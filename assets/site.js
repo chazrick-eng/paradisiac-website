@@ -15,6 +15,16 @@
   let done=false;
   const finish=()=>{if(done)return;done=true;pl.classList.add('done');document.body.classList.remove('pl-lock');
     setTimeout(()=>pl.remove(),2100);};
+  // Skip control: quick fade past the intro
+  const skipNow=()=>{if(done)return;done=true;pl.classList.add('pl-skipped');document.body.classList.remove('pl-lock');
+    setTimeout(()=>pl.remove(),400);};
+  const skip=document.createElement('button');
+  skip.type='button';skip.className='pl-skip';skip.textContent='Skip';
+  skip.setAttribute('aria-label','Skip intro');
+  skip.addEventListener('click',skipNow);
+  pl.appendChild(skip);
+  const onKey=e=>{if(e.key==='Escape'){skipNow();removeEventListener('keydown',onKey);}};
+  addEventListener('keydown',onKey);
   const start=Date.now();
   if(document.readyState==='complete')setTimeout(finish,hold);
   else addEventListener('load',()=>setTimeout(finish,Math.max(0,hold-(Date.now()-start))));
@@ -290,9 +300,17 @@
       ov.className='res-x';
       ov.innerHTML='<div class="rx-card" style="background-image:url(\''+src+'\')"></div>'+
         '<div class="rx-word"><b>'+lab[0]+'</b><i></i><span>'+lab[1]+'</span></div>';
+      var hint=document.createElement('span');
+      hint.className='rx-skip';hint.textContent='Skip';
+      ov.appendChild(hint);
       document.body.appendChild(ov);
       document.documentElement.style.overflow='hidden';
-      setTimeout(function(){window.location.href=href;},780);
+      var navd=false;
+      var go=function(){if(navd)return;navd=true;window.location.href=href;};
+      ov.addEventListener('click',go);           // tap anywhere to skip straight to the page
+      var onKey=function(ev){if(ev.key==='Escape'){removeEventListener('keydown',onKey);go();}};
+      addEventListener('keydown',onKey);
+      setTimeout(go,780);
     });
   });
 })();
