@@ -15,8 +15,8 @@
   const finish=()=>{if(done)return;done=true;pl.classList.add('done');document.body.classList.remove('pl-lock');
     setTimeout(()=>pl.remove(),2100);};
   const start=Date.now();
-  if(document.readyState==='complete')setTimeout(finish,2600);
-  else addEventListener('load',()=>setTimeout(finish,Math.max(0,2600-(Date.now()-start))));
+  if(document.readyState==='complete')setTimeout(finish,2950);
+  else addEventListener('load',()=>setTimeout(finish,Math.max(0,2950-(Date.now()-start))));
   setTimeout(finish,6000); // safety net
 })();
 

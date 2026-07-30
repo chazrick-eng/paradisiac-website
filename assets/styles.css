@@ -58,11 +58,7 @@ header.scrolled,header.solid{background:rgba(11,20,24,.92);backdrop-filter:blur(
 .preloader.done{opacity:0;pointer-events:none}
 .pl-stage{position:relative;width:44vw;max-width:720px;height:56vh;transform:scale(.86);opacity:0;animation:plStageIn .85s cubic-bezier(.2,.7,.2,1) .15s forwards;z-index:1}
 .pl-card{position:absolute;inset:0;border-radius:16px;overflow:hidden;box-shadow:0 50px 140px -30px rgba(0,0,0,.85);transition:transform 1.15s cubic-bezier(.76,0,.24,1),border-radius 1.15s ease}
-.pl-cimg{position:absolute;inset:0;background-size:cover;background-position:center;opacity:0;transform:scale(1.06);animation:plShow .55s ease forwards}
-.pl-cimg:nth-child(1){animation-delay:.45s}
-.pl-cimg:nth-child(2){animation-delay:.9s}
-.pl-cimg:nth-child(3){animation-delay:1.35s}
-.pl-cimg:nth-child(4){animation-delay:1.8s}
+.pl-cimg{position:absolute;inset:0;background-size:cover;background-position:center;opacity:0;transform:scale(1.06);animation:plShow .5s ease forwards;animation-delay:calc(.3s + var(--i,0) * .32s)}
 @keyframes plShow{to{opacity:1;transform:scale(1)}}
 @keyframes plStageIn{to{opacity:1;transform:scale(1)}}
 .pl-center{position:relative;z-index:2;display:flex;flex-direction:column;align-items:center;gap:14px;transition:opacity .45s ease,transform .6s ease}
