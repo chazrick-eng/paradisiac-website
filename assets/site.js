@@ -9,11 +9,10 @@
   const pl=document.getElementById('preloader');
   if(!pl)return;
   const reduce=window.matchMedia&&matchMedia('(prefers-reduced-motion: reduce)').matches;
-  if(reduce||document.documentElement.classList.contains('pl-skip')){pl.remove();return;}
+  if(reduce){pl.remove();return;}
   document.body.classList.add('pl-lock');
   let done=false;
   const finish=()=>{if(done)return;done=true;pl.classList.add('done');document.body.classList.remove('pl-lock');
-    try{sessionStorage.setItem('pbc_loaded','1');}catch(e){}
     setTimeout(()=>pl.remove(),2100);};
   const start=Date.now();
   if(document.readyState==='complete')setTimeout(finish,2600);
