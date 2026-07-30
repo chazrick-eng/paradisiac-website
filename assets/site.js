@@ -11,13 +11,14 @@
   const reduce=window.matchMedia&&matchMedia('(prefers-reduced-motion: reduce)').matches;
   if(reduce){pl.remove();return;}
   document.body.classList.add('pl-lock');
+  const hold=parseInt(pl.dataset.ms,10)||2950; // per-page hold; residence intros pass a shorter value
   let done=false;
   const finish=()=>{if(done)return;done=true;pl.classList.add('done');document.body.classList.remove('pl-lock');
     setTimeout(()=>pl.remove(),2100);};
   const start=Date.now();
-  if(document.readyState==='complete')setTimeout(finish,2950);
-  else addEventListener('load',()=>setTimeout(finish,Math.max(0,2950-(Date.now()-start))));
-  setTimeout(finish,6000); // safety net
+  if(document.readyState==='complete')setTimeout(finish,hold);
+  else addEventListener('load',()=>setTimeout(finish,Math.max(0,hold-(Date.now()-start))));
+  setTimeout(finish,hold+3050); // safety net
 })();
 
 /* ---------- HEADER SCROLL STATE ---------- */
@@ -262,4 +263,36 @@
     ents.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); } });
   },{threshold:0.08, rootMargin:'0px 0px 12% 0px'});
   els.forEach(el=>io.observe(el));
+})();
+
+/* ---------- RESIDENCE CLICK TRANSITION (list -> unit page) ---------- */
+(function(){
+  var cards=document.querySelectorAll('a.card[href^="residence-"]');
+  if(!cards.length)return;
+  var reduce=window.matchMedia&&matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if(reduce)return;
+  var LABELS={
+    'residence-ruby.html':['The Ruby','Three-Bedroom Home'],
+    'residence-onyx.html':['The Onyx','Three-Bedroom Townhouse'],
+    'residence-sapphire.html':['The Sapphire','Coastal Apartments'],
+    'residence-emerald.html':['The Emerald','Coastal Apartments'],
+    'residence-diamond.html':['The Diamond','Signature Residence']
+  };
+  cards.forEach(function(a){
+    a.addEventListener('click',function(e){
+      if(e.metaKey||e.ctrlKey||e.shiftKey||e.altKey||e.button===1)return; // preserve open-in-new-tab
+      var href=a.getAttribute('href');
+      e.preventDefault();
+      var img=a.querySelector('.ph img');
+      var src=img?img.getAttribute('src'):'';
+      var lab=LABELS[href]||['',''];
+      var ov=document.createElement('div');
+      ov.className='res-x';
+      ov.innerHTML='<div class="rx-card" style="background-image:url(\''+src+'\')"></div>'+
+        '<div class="rx-word"><b>'+lab[0]+'</b><i></i><span>'+lab[1]+'</span></div>';
+      document.body.appendChild(ov);
+      document.documentElement.style.overflow='hidden';
+      setTimeout(function(){window.location.href=href;},780);
+    });
+  });
 })();

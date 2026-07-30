@@ -382,3 +382,16 @@ header.scrolled .brand-logo{height:36px}
   .brand-logo,header.scrolled .brand-logo{height:32px}
   .foot-logo{height:58px}
 }
+
+/* ---------- RESIDENCE CLICK TRANSITION (list -> unit) ---------- */
+.res-x{position:fixed;inset:0;z-index:10000;background:var(--ink);overflow:hidden;opacity:0;animation:resxIn .16s ease forwards}
+.res-x .rx-card{position:absolute;inset:0;background-size:cover;background-position:center;transform:scale(1.06);opacity:.28;animation:rxBloom .82s cubic-bezier(.66,0,.2,1) forwards}
+.res-x::after{content:"";position:absolute;inset:0;background:radial-gradient(120% 90% at 50% 45%,transparent 40%,rgba(11,20,24,.72) 100%);z-index:1}
+.res-x .rx-word{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:16px;z-index:2;text-align:center;opacity:0;animation:rxWord .5s ease .12s forwards}
+.res-x .rx-word b{font-family:var(--serif);font-weight:500;letter-spacing:.22em;text-transform:uppercase;color:var(--cream);font-size:clamp(1.7rem,4.4vw,3rem)}
+.res-x .rx-word i{display:block;width:64px;height:1px;background:var(--gold)}
+.res-x .rx-word span{font-size:.72rem;letter-spacing:.3em;text-transform:uppercase;color:var(--gold-soft)}
+@keyframes resxIn{to{opacity:1}}
+@keyframes rxBloom{45%{opacity:.9}100%{transform:scale(1.2);opacity:1}}
+@keyframes rxWord{to{opacity:1}}
+@media(prefers-reduced-motion:reduce){.res-x{display:none}}
