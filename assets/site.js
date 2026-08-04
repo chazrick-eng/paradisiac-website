@@ -314,3 +314,62 @@
     });
   });
 })();
+
+/* ---------- UI MOTION: count-up stats + subtle parallax ---------- */
+(function(){
+  var reduce = window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if(reduce || !('IntersectionObserver' in window)) return;
+
+  /* Count-up numbers when they scroll into view (skips non-numeric like "Now", "24/7") */
+  var numSel = ['.spec-row .s b', '.card-body .meta b', '.stat b', '.stat-num', '[data-count]'];
+  var nums = [].slice.call(document.querySelectorAll(numSel.join(',')));
+  function countUp(el){
+    var raw = el.textContent.trim();
+    var m = raw.match(/^(\D*?)(\d[\d,]*(?:\.\d+)?)(\D*)$/);
+    if(!m) return;                       // only pure single-number labels
+    var pre = m[1], numStr = m[2], suf = m[3];
+    var hasComma = numStr.indexOf(',') > -1;
+    var decimals = (numStr.split('.')[1] || '').length;
+    var target = parseFloat(numStr.replace(/,/g,''));
+    if(!isFinite(target) || target === 0) return;
+    var dur = 1300, t0 = performance.now();
+    el.style.fontVariantNumeric = 'tabular-nums';
+    function fmt(v){
+      var s = decimals ? v.toFixed(decimals) : String(Math.round(v));
+      if(hasComma) s = Number(s).toLocaleString('en-US', {minimumFractionDigits:decimals, maximumFractionDigits:decimals});
+      return pre + s + suf;
+    }
+    function step(now){
+      var p = Math.min(1, (now - t0) / dur);
+      var e = 1 - Math.pow(1 - p, 3);     // ease-out cubic
+      el.textContent = fmt(target * e);
+      if(p < 1) requestAnimationFrame(step); else el.textContent = pre + numStr + suf;
+    }
+    requestAnimationFrame(step);
+  }
+  if(nums.length){
+    var io = new IntersectionObserver(function(ents){
+      ents.forEach(function(en){ if(en.isIntersecting){ countUp(en.target); io.unobserve(en.target); } });
+    }, {threshold:0.6});
+    nums.forEach(function(el){ io.observe(el); });
+  }
+
+  /* Gentle parallax on interior page banners */
+  var px = [].slice.call(document.querySelectorAll('.subhero'));
+  if(px.length){
+    var ticking = false;
+    function upd(){
+      ticking = false;
+      var vh = window.innerHeight;
+      px.forEach(function(el){
+        var r = el.getBoundingClientRect();
+        if(r.bottom < -40 || r.top > vh + 40) return;
+        var off = r.top * -0.14;          // image drifts slower than the page
+        el.style.backgroundPositionY = 'calc(50% + ' + off.toFixed(1) + 'px)';
+      });
+    }
+    addEventListener('scroll', function(){ if(!ticking){ requestAnimationFrame(upd); ticking = true; } }, {passive:true});
+    addEventListener('resize', upd, {passive:true});
+    upd();
+  }
+})();

@@ -403,3 +403,40 @@ header.scrolled .brand-logo{height:36px}
 .preloader.pl-skipped{opacity:0!important;transition:opacity .4s ease;pointer-events:none}
 .res-x .rx-skip{position:absolute;bottom:30px;right:32px;z-index:3;color:var(--cream-dim);font-family:var(--sans);font-size:.68rem;font-weight:500;letter-spacing:.2em;text-transform:uppercase;border:1px solid var(--line);border-radius:30px;padding:9px 18px;opacity:0;animation:plSkipIn .4s ease .25s forwards}
 @media(max-width:700px){.pl-skip,.res-x .rx-skip{bottom:22px;right:20px}}
+
+/* ---------- UI MOTION: hover micro-interactions + heading accent ---------- */
+/* Buttons: subtle lift on top of existing colour swap */
+.btn{transition:all .35s ease, transform .35s ease, box-shadow .35s ease}
+.btn:hover,.btn:focus-visible{transform:translateY(-2px);box-shadow:0 16px 34px -18px rgba(0,0,0,.7)}
+.btn:active{transform:translateY(0)}
+/* Residence spec tiles */
+.spec-row .s{transition:background .45s ease}
+.spec-row .s:hover{background:#0e1c1e}
+/* Feature list rows warm up on hover */
+.feature-list li{transition:color .3s ease, padding-left .3s ease}
+.feature-list li:hover{color:var(--cream);padding-left:6px}
+/* Sidebar cards */
+.price-block{transition:border-color .45s ease, transform .45s ease, box-shadow .45s ease}
+.price-block:hover{border-color:var(--gold-soft);box-shadow:0 26px 60px -34px rgba(0,0,0,.7)}
+/* Gallery images zoom gently on hover */
+.gallery button{overflow:hidden}
+.gallery button img{transition:transform .9s cubic-bezier(.2,.7,.2,1)}
+.gallery button:hover img,.gallery button:focus-visible img{transform:scale(1.06)}
+/* Amenity / feature tiles */
+.amen-grid .item,.panel{transition:transform .45s ease, box-shadow .45s ease, border-color .45s ease}
+.amen-grid .item:hover,.panel:hover{transform:translateY(-6px);box-shadow:0 28px 60px -34px rgba(0,0,0,.65)}
+/* Contact / social icon links */
+a[href^="tel:"],a[href^="https://wa.me"]{transition:color .3s ease}
+
+/* Animated gold underline that draws itself when a section heading reveals */
+.section-head h2{position:relative}
+.section-head h2::after{content:"";display:block;width:84px;height:2px;margin-top:20px;
+  background:linear-gradient(90deg,var(--gold),rgba(198,166,103,0));
+  transform:scaleX(0);transform-origin:left center;
+  transition:transform 1s cubic-bezier(.2,.7,.2,1) .25s}
+.section-head.center h2::after{margin-inline:auto;transform-origin:center}
+.section-head.in h2::after{transform:scaleX(1)}
+@media(prefers-reduced-motion:reduce){
+  .section-head h2::after{transform:scaleX(1);transition:none}
+  .btn:hover,.amen-grid .item:hover,.panel:hover,.price-block:hover{transform:none}
+}
