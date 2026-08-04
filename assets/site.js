@@ -264,7 +264,18 @@
     '.price-block','.map-grid > *','.cta-strip .wrap > *','.foot-grid > *','.spec-row .s','.faq-item'];
   const els=[...document.querySelectorAll(sel.join(','))];
   if(reduce || !('IntersectionObserver' in window) || !els.length) return;
-  els.forEach(el=>el.classList.add('reveal'));
+  els.forEach(el=>{
+    el.classList.add('reveal');
+    // directional / clip variants for a more dynamic scroll
+    if(el.matches('.gallery button')) el.classList.add('reveal-clip');
+    else if(el.matches('.card')) el.classList.add('reveal-scale');
+    else if(el.matches('.listing-grid > aside')) el.classList.add('reveal-right');
+    else if(el.matches('.listing-grid > div')) el.classList.add('reveal-left');
+    else if(el.matches('.about-grid > *')){
+      const i=[...el.parentElement.children].indexOf(el);
+      el.classList.add(i%2 ? 'reveal-right' : 'reveal-left');
+    }
+  });
   els.forEach(el=>{
     const sibs=[...el.parentElement.children].filter(n=>n.classList.contains('reveal'));
     el.style.transitionDelay=(Math.min(sibs.indexOf(el),6)*0.07)+'s';
@@ -372,4 +383,24 @@
     addEventListener('resize', upd, {passive:true});
     upd();
   }
+})();
+
+/* ---------- SCROLL PROGRESS BAR ---------- */
+(function(){
+  var reduce = window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if(reduce) return;
+  var bar = document.createElement('div'); bar.className = 'scroll-prog';
+  var fill = document.createElement('i'); bar.appendChild(fill);
+  document.body.appendChild(bar);
+  var ticking = false;
+  function upd(){
+    ticking = false;
+    var h = document.documentElement;
+    var max = h.scrollHeight - h.clientHeight;
+    var p = max > 0 ? (h.scrollTop || document.body.scrollTop) / max : 0;
+    fill.style.transform = 'scaleX(' + Math.max(0, Math.min(1, p)).toFixed(4) + ')';
+  }
+  addEventListener('scroll', function(){ if(!ticking){ requestAnimationFrame(upd); ticking = true; } }, {passive:true});
+  addEventListener('resize', upd, {passive:true});
+  upd();
 })();

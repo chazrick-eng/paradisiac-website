@@ -440,3 +440,22 @@ a[href^="tel:"],a[href^="https://wa.me"]{transition:color .3s ease}
   .section-head h2::after{transform:scaleX(1);transition:none}
   .btn:hover,.amen-grid .item:hover,.panel:hover,.price-block:hover{transform:none}
 }
+
+/* ---------- SCROLL: directional + clip reveal variants ---------- */
+.reveal-left{transform:translateX(-42px)}
+.reveal-right{transform:translateX(42px)}
+.reveal-scale{transform:scale(.94)}
+.reveal-left.in,.reveal-right.in,.reveal-scale.in{transform:none}
+.reveal-clip{opacity:1;transform:none;clip-path:inset(0 100% 0 0);
+  transition:clip-path 1s cubic-bezier(.2,.7,.2,1)}
+.reveal-clip.in{clip-path:inset(0 0 0 0)}
+
+/* ---------- SCROLL PROGRESS BAR ---------- */
+.scroll-prog{position:fixed;top:0;left:0;right:0;height:3px;z-index:70;background:transparent;pointer-events:none}
+.scroll-prog i{display:block;height:100%;transform:scaleX(0);transform-origin:left;will-change:transform;
+  background:linear-gradient(90deg,var(--gold),var(--gold-soft))}
+@media(prefers-reduced-motion:reduce){
+  .reveal-left,.reveal-right,.reveal-scale{transform:none}
+  .reveal-clip{clip-path:none}
+  .scroll-prog{display:none}
+}
