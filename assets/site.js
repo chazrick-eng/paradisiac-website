@@ -300,6 +300,16 @@
     ents.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); } });
   },{threshold:0.08, rootMargin:'0px 0px 12% 0px'});
   els.forEach(el=>io.observe(el));
+  // FAIL-SAFES: never leave content hidden if the observer is silent
+  const revealVisible=()=>els.forEach(el=>{
+    if(el.classList.contains('in'))return;
+    const r=el.getBoundingClientRect();
+    if(r.top < innerHeight*1.15 && r.bottom > -80){ el.classList.add('in'); io.unobserve(el); }
+  });
+  revealVisible();                                   // show anything already on screen right away
+  addEventListener('scroll',revealVisible,{passive:true});
+  addEventListener('load',revealVisible);
+  setTimeout(()=>els.forEach(el=>el.classList.add('in')),2500); // backstop so nothing stays hidden
 })();
 
 /* ---------- RESIDENCE CLICK TRANSITION (list -> unit page) ---------- */
@@ -434,6 +444,16 @@
     ents.forEach(function(en){ if(en.isIntersecting){ en.target.classList.add('in'); io.unobserve(en.target); } });
   }, {threshold:0.04, rootMargin:'0px 0px -6% 0px'});
   secs.forEach(function(s){ io.observe(s); });
+  // FAIL-SAFES: never leave a section hidden if the observer is silent
+  var revealVisible=function(){ secs.forEach(function(s){
+    if(s.classList.contains('in'))return;
+    var r=s.getBoundingClientRect();
+    if(r.top < innerHeight*1.15 && r.bottom > -80){ s.classList.add('in'); io.unobserve(s); }
+  }); };
+  revealVisible();
+  addEventListener('scroll',revealVisible,{passive:true});
+  addEventListener('load',revealVisible);
+  setTimeout(function(){ secs.forEach(function(s){ s.classList.add('in'); }); },2500);
 })();
 
 /* ---------- TACTILE: 3D tilt cards + magnetic buttons + click ripple ---------- */
