@@ -468,3 +468,43 @@ a[href^="tel:"],a[href^="https://wa.me"]{transition:color .3s ease}
 @media(prefers-reduced-motion:reduce){
   .sec-anim{opacity:1!important;transform:none!important}
 }
+
+/* ===================================================================
+   INTERACTIVE FEATURES
+   =================================================================== */
+
+/* --- Tactile: cards tilt, buttons magnetic + ripple --- */
+.card,.fp-item,.amen-grid .item{transform-style:preserve-3d;will-change:transform;transition:transform .3s cubic-bezier(.2,.7,.2,1),box-shadow .4s ease}
+.btn-solid,.nav-cta{transition:transform .25s cubic-bezier(.2,.7,.2,1),background .35s ease,color .35s ease}
+.btn,.btn-solid,.nav-cta{position:relative;overflow:hidden}
+.ripple{position:absolute;border-radius:50%;background:rgba(198,166,103,.45);transform:scale(0);animation:ripple .6s ease-out;pointer-events:none;z-index:0}
+@keyframes ripple{to{transform:scale(2.4);opacity:0}}
+
+/* --- Filterable gallery --- */
+.gal-filters{display:flex;flex-wrap:wrap;gap:12px;justify-content:center;margin:0 0 40px}
+.gal-filter{font-family:var(--sans);font-size:.72rem;font-weight:500;letter-spacing:.16em;text-transform:uppercase;color:var(--cream-dim);background:transparent;border:1px solid var(--line);padding:11px 22px;border-radius:30px;cursor:pointer;transition:color .3s,background .3s,border-color .3s}
+.gal-filter:hover{color:var(--cream);border-color:var(--gold-soft)}
+.gal-filter.active{color:var(--ink);background:var(--gold);border-color:var(--gold)}
+.gallery button.gal-hide{display:none}
+@keyframes galIn{from{opacity:0;transform:scale(.94)}to{opacity:1;transform:none}}
+
+/* --- Compare residences --- */
+.compare-sec{background:var(--ink-2)}
+.compare-tool{max-width:760px;margin:0 auto}
+.cmp-picks{display:flex;align-items:center;justify-content:center;gap:18px;margin-bottom:30px;flex-wrap:wrap}
+.cmp-sel{appearance:none;-webkit-appearance:none;font-family:var(--serif);font-size:1.3rem;color:var(--gold-soft);background:var(--panel);border:1px solid var(--line);padding:14px 44px 14px 20px;border-radius:4px;cursor:pointer;min-width:220px;
+  background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'><path d='M1 1l5 5 5-5' stroke='%23c6a667' stroke-width='1.5' fill='none'/></svg>");background-repeat:no-repeat;background-position:right 18px center}
+.cmp-sel:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
+.cmp-vs{font-family:var(--serif);font-style:italic;color:var(--cream-dim);font-size:1.1rem}
+.cmp-table table{width:100%;border-collapse:collapse;background:var(--panel);border:1px solid var(--line)}
+.cmp-table th,.cmp-table td{padding:16px 20px;text-align:center;border-bottom:1px solid var(--line);font-size:.98rem}
+.cmp-table thead th{font-family:var(--serif);font-size:1.35rem;color:var(--gold-soft);font-weight:500}
+.cmp-table .cmp-k{text-align:left;font-size:.68rem;letter-spacing:.16em;text-transform:uppercase;color:var(--cream-dim)}
+.cmp-table tbody td{color:var(--cream)}
+.cmp-table .cmp-cta td{border-bottom:none;padding-top:22px}
+.cmp-table .cmp-cta .btn{padding:11px 20px;font-size:.66rem;width:100%}
+@media(max-width:560px){.cmp-sel{min-width:140px;font-size:1.05rem}.cmp-table th,.cmp-table td{padding:12px 8px;font-size:.82rem}}
+
+/* --- Enhanced photo viewer: click-to-zoom --- */
+#lbImg{cursor:zoom-in;transition:transform .35s ease}
+#lbImg.zoomed{cursor:zoom-out;transform:scale(2.2)}

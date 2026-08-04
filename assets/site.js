@@ -199,6 +199,7 @@
   const show=n=>{
     i=(n+imgs.length)%imgs.length;
     const im=imgs[i];
+    lbImg.classList.remove('zoomed'); lbImg.style.transformOrigin='center'; // reset zoom on navigate
     lbImg.src=im.dataset.full||im.src; lbImg.alt=im.alt;
     if(cap)cap.textContent=im.alt||''; if(cnt)cnt.textContent=(i+1)+' / '+imgs.length;
     [i+1,i-1].forEach(k=>{const j=(k+imgs.length)%imgs.length;const pre=new Image();pre.src=imgs[j].dataset.full||imgs[j].src;});
@@ -223,6 +224,21 @@
       if(e.shiftKey&&document.activeElement===first){e.preventDefault();last.focus();}
       else if(!e.shiftKey&&document.activeElement===last){e.preventDefault();first.focus();}
     }
+  });
+  // touch swipe to navigate
+  let sx=0, sy=0;
+  lb.addEventListener('touchstart',e=>{const t=e.changedTouches[0];sx=t.clientX;sy=t.clientY;},{passive:true});
+  lb.addEventListener('touchend',e=>{
+    if(lbImg.classList.contains('zoomed'))return;
+    const t=e.changedTouches[0], dx=t.clientX-sx, dy=t.clientY-sy;
+    if(Math.abs(dx)>48 && Math.abs(dx)>Math.abs(dy)) show(dx<0 ? i+1 : i-1);
+  },{passive:true});
+  // click / tap to zoom, move to pan
+  lbImg.addEventListener('click',e=>{e.stopPropagation();lbImg.classList.toggle('zoomed');});
+  lbImg.addEventListener('mousemove',e=>{
+    if(!lbImg.classList.contains('zoomed'))return;
+    const r=lbImg.getBoundingClientRect();
+    lbImg.style.transformOrigin=((e.clientX-r.left)/r.width*100)+'% '+((e.clientY-r.top)/r.height*100)+'%';
   });
 })();
 
@@ -418,4 +434,99 @@
     ents.forEach(function(en){ if(en.isIntersecting){ en.target.classList.add('in'); io.unobserve(en.target); } });
   }, {threshold:0.04, rootMargin:'0px 0px -6% 0px'});
   secs.forEach(function(s){ io.observe(s); });
+})();
+
+/* ---------- TACTILE: 3D tilt cards + magnetic buttons + click ripple ---------- */
+(function(){
+  var reduce = window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var fine = window.matchMedia && matchMedia('(hover: hover) and (pointer: fine)').matches;
+  if(reduce || !fine) return;
+  document.querySelectorAll('.card, .fp-item, .amen-grid .item').forEach(function(card){
+    card.addEventListener('mousemove',function(e){
+      var r=card.getBoundingClientRect();
+      var px=(e.clientX-r.left)/r.width-.5, py=(e.clientY-r.top)/r.height-.5;
+      card.style.transform='perspective(900px) rotateX('+(-py*4.5).toFixed(2)+'deg) rotateY('+(px*6).toFixed(2)+'deg) translateY(-6px)';
+    });
+    card.addEventListener('mouseleave',function(){card.style.transform='';});
+  });
+  document.querySelectorAll('.btn-solid, .nav-cta').forEach(function(btn){
+    btn.addEventListener('mousemove',function(e){
+      var r=btn.getBoundingClientRect();
+      btn.style.transform='translate('+((e.clientX-r.left-r.width/2)*0.22).toFixed(1)+'px,'+((e.clientY-r.top-r.height/2)*0.3).toFixed(1)+'px)';
+    });
+    btn.addEventListener('mouseleave',function(){btn.style.transform='';});
+  });
+  document.querySelectorAll('.btn, .btn-solid, .nav-cta').forEach(function(el){
+    el.addEventListener('click',function(e){
+      var r=el.getBoundingClientRect(), size=Math.max(r.width,r.height);
+      var rip=document.createElement('span'); rip.className='ripple';
+      rip.style.width=rip.style.height=size+'px';
+      rip.style.left=(e.clientX-r.left-size/2)+'px'; rip.style.top=(e.clientY-r.top-size/2)+'px';
+      el.appendChild(rip); setTimeout(function(){rip.remove();},600);
+    });
+  });
+})();
+
+/* ---------- FILTERABLE GALLERY (main gallery page only) ---------- */
+(function(){
+  var grid=document.getElementById('gallery');
+  if(!grid || !/gallery\.html$/.test(location.pathname)) return;
+  var btns=[].slice.call(grid.querySelectorAll('button'));
+  if(btns.length<6) return;
+  function cat(alt){
+    alt=(alt||'').toLowerCase();
+    if(/pool|club|rooftop|terrace|beach|cabana/.test(alt)) return 'Beach Club';
+    if(/exterior|front|garden|street|corner|community|villa|entrance|apartment|building|patio|balcony|\blot\b|single-storey|detached|pavilion|gated|home\b/.test(alt)) return 'Exterior';
+    if(/kitchen/.test(alt)) return 'Kitchen';
+    if(/living|dining|lounge/.test(alt)) return 'Living';
+    if(/bedroom|bunk|nursery|master|bath|shower|powder|vanity|en-suite/.test(alt)) return 'Bedrooms';
+    return 'Exterior';
+  }
+  var order=['All','Exterior','Living','Kitchen','Bedrooms','Beach Club'], present={};
+  btns.forEach(function(b){ var c=cat(b.querySelector('img').alt); b.dataset.cat=c; present[c]=1; });
+  var cats=order.filter(function(c){ return c==='All'||present[c]; });
+  var bar=document.createElement('div'); bar.className='gal-filters';
+  cats.forEach(function(c,idx){
+    var f=document.createElement('button'); f.type='button';
+    f.className='gal-filter'+(idx===0?' active':''); f.textContent=c; f.dataset.filter=c;
+    bar.appendChild(f);
+  });
+  grid.parentNode.insertBefore(bar,grid);
+  bar.addEventListener('click',function(e){
+    var f=e.target.closest('.gal-filter'); if(!f)return;
+    bar.querySelectorAll('.gal-filter').forEach(function(x){x.classList.remove('active');});
+    f.classList.add('active');
+    var sel=f.dataset.filter;
+    btns.forEach(function(b){
+      var showit = sel==='All' || b.dataset.cat===sel;
+      if(showit){ b.classList.remove('gal-hide'); b.style.animation='none'; void b.offsetWidth; b.style.animation='galIn .45s ease'; }
+      else b.classList.add('gal-hide');
+    });
+  });
+})();
+
+/* ---------- COMPARE RESIDENCES ---------- */
+(function(){
+  var root=document.getElementById('compare'); if(!root) return;
+  var DATA={
+    'The Ruby':{Type:'Detached home',Bedrooms:'3',Bathrooms:'3.5',Availability:'Now · model open',link:'residence-ruby.html'},
+    'The Onyx':{Type:'Townhouse (duplex)',Bedrooms:'3',Bathrooms:'3.5',Availability:'Now · model open',link:'residence-onyx.html'},
+    'The Sapphire':{Type:'Apartments · 3 floors',Bedrooms:'1 & 2',Bathrooms:'1 & 2.5',Availability:'Coming soon',link:'residence-sapphire.html'},
+    'The Emerald':{Type:'Apartments · 3 floors',Bedrooms:'2 & 3',Bathrooms:'2.5 & 3.5',Availability:'Coming soon',link:'residence-emerald.html'},
+    'The Diamond':{Type:'Detached home',Bedrooms:'4',Bathrooms:'4.5',Availability:'Coming soon',link:'residence-diamond.html'}
+  };
+  var names=Object.keys(DATA), rows=['Type','Bedrooms','Bathrooms','Availability'];
+  var a=document.getElementById('cmpA'), b=document.getElementById('cmpB'), out=document.getElementById('cmpTable');
+  names.forEach(function(n){ a.add(new Option(n,n)); b.add(new Option(n,n)); });
+  a.value=names[0]; b.value=names[1];
+  function esc(s){return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;');}
+  function render(){
+    if(a.value===b.value){ var oi=(names.indexOf(a.value)+1)%names.length; b.value=names[oi]; }
+    var A=DATA[a.value], B=DATA[b.value];
+    var h='<table class="cmp"><thead><tr><th></th><th>'+esc(a.value)+'</th><th>'+esc(b.value)+'</th></tr></thead><tbody>';
+    rows.forEach(function(r){ h+='<tr><td class="cmp-k">'+r+'</td><td>'+esc(A[r])+'</td><td>'+esc(B[r])+'</td></tr>'; });
+    h+='<tr class="cmp-cta"><td></td><td><a class="btn" href="'+A.link+'">View '+esc(a.value)+'</a></td><td><a class="btn" href="'+B.link+'">View '+esc(b.value)+'</a></td></tr>';
+    h+='</tbody></table>'; out.innerHTML=h;
+  }
+  a.addEventListener('change',render); b.addEventListener('change',render); render();
 })();
