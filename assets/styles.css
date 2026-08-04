@@ -508,3 +508,12 @@ a[href^="tel:"],a[href^="https://wa.me"]{transition:color .3s ease}
 /* --- Enhanced photo viewer: click-to-zoom --- */
 #lbImg{cursor:zoom-in;transition:transform .35s ease}
 #lbImg.zoomed{cursor:zoom-out;transform:scale(2.2)}
+
+/* ---------- HOME: interactive cursor spotlight + about-image tilt ---------- */
+.spot{position:relative}
+.spot::before{content:"";position:absolute;inset:0;z-index:0;pointer-events:none;opacity:0;transition:opacity .5s ease;
+  background:radial-gradient(360px circle at var(--mx,50%) var(--my,50%), rgba(198,166,103,.10), transparent 62%)}
+.spot:hover::before{opacity:1}
+.spot > .wrap{position:relative;z-index:1}
+.about-grid img.tilt-img{transition:transform .3s cubic-bezier(.2,.7,.2,1);will-change:transform;transform-style:preserve-3d}
+@media(prefers-reduced-motion:reduce){.spot::before{display:none}}

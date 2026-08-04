@@ -348,7 +348,7 @@
   if(reduce || !('IntersectionObserver' in window)) return;
 
   /* Count-up numbers when they scroll into view (skips non-numeric like "Now", "24/7") */
-  var numSel = ['.spec-row .s b', '.card-body .meta b', '.stat b', '.stat-num', '[data-count]'];
+  var numSel = ['.spec-row .s b', '.card-body .meta b', '.stat b', '.stat .n', '.stat-num', '[data-count]'];
   var nums = [].slice.call(document.querySelectorAll(numSel.join(',')));
   function countUp(el){
     var raw = el.textContent.trim();
@@ -529,4 +529,36 @@
     h+='</tbody></table>'; out.innerHTML=h;
   }
   a.addEventListener('change',render); b.addEventListener('change',render); render();
+})();
+
+/* ---------- HOME: interactive cursor spotlight + about-image tilt ---------- */
+(function(){
+  if(!document.querySelector('.hero .hero-slides')) return;          // home page only
+  var reduce = window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var fine = window.matchMedia && matchMedia('(hover: hover) and (pointer: fine)').matches;
+  if(reduce || !fine) return;
+
+  // gold spotlight that follows the cursor within each home section
+  var secs=[].slice.call(document.querySelectorAll('main > section:not(.hero)'));
+  secs.forEach(function(s){
+    s.classList.add('spot');
+    s.addEventListener('mousemove',function(e){
+      var r=s.getBoundingClientRect();
+      s.style.setProperty('--mx', ((e.clientX-r.left)/r.width*100).toFixed(1)+'%');
+      s.style.setProperty('--my', ((e.clientY-r.top)/r.height*100).toFixed(1)+'%');
+    });
+  });
+
+  // subtle mouse-tilt on the About image
+  var aboutImg=document.querySelector('.about-grid img');
+  if(aboutImg){
+    var wrap=aboutImg.closest('.about-grid')||aboutImg.parentElement;
+    aboutImg.classList.add('tilt-img');
+    wrap.addEventListener('mousemove',function(e){
+      var r=aboutImg.getBoundingClientRect();
+      var px=(e.clientX-r.left)/r.width-.5, py=(e.clientY-r.top)/r.height-.5;
+      aboutImg.style.transform='perspective(1000px) rotateX('+(-py*4).toFixed(2)+'deg) rotateY('+(px*5).toFixed(2)+'deg) scale(1.02)';
+    });
+    wrap.addEventListener('mouseleave',function(){ aboutImg.style.transform=''; });
+  }
 })();
