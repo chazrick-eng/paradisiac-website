@@ -459,3 +459,12 @@ a[href^="tel:"],a[href^="https://wa.me"]{transition:color .3s ease}
   .reveal-clip{clip-path:none}
   .scroll-prog{display:none}
 }
+
+/* ---------- SECTION-LEVEL SCROLL ENTRANCE ---------- */
+.sec-anim{opacity:0;transition:opacity 1s ease, transform 1.15s cubic-bezier(.2,.7,.2,1)}
+.sec-anim.s-up{transform:translateY(38px)}
+.sec-anim.s-scale{transform:scale(.972)}
+.sec-anim.in{opacity:1;transform:none}
+@media(prefers-reduced-motion:reduce){
+  .sec-anim{opacity:1!important;transform:none!important}
+}

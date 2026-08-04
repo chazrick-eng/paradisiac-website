@@ -404,3 +404,18 @@
   addEventListener('resize', upd, {passive:true});
   upd();
 })();
+
+/* ---------- SECTION-LEVEL SCROLL ENTRANCE ---------- */
+(function(){
+  var reduce = window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if(reduce || !('IntersectionObserver' in window)) return;
+  var secs = [].slice.call(document.querySelectorAll('main > section:not(.hero):not(.subhero)'));
+  if(!secs.length) return;
+  secs.forEach(function(s, i){
+    s.classList.add('sec-anim', i % 2 ? 's-scale' : 's-up');  // alternate the feel
+  });
+  var io = new IntersectionObserver(function(ents){
+    ents.forEach(function(en){ if(en.isIntersecting){ en.target.classList.add('in'); io.unobserve(en.target); } });
+  }, {threshold:0.04, rootMargin:'0px 0px -6% 0px'});
+  secs.forEach(function(s){ io.observe(s); });
+})();
